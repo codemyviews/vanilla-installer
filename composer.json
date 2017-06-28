@@ -1,0 +1,23 @@
+{
+    "name": "ikoolik/vanilla-installer",
+    "description": "Vanilla theme installer. Inspired by laravel/installer by Talor Otwel",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ivan Kulikov",
+            "email": "ikoolik@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Vanilla\\Installer\\Console\\": "src/"
+        }
+    },
+    "require": {
+        "symfony/console": "~2.3|~3.0",
+        "symfony/process": "~2.3|~3.0"
+    },
+    "bin": [
+        "vanilla"
+    ]
+}
