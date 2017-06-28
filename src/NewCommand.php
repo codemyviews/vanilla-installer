@@ -42,7 +42,7 @@ class NewCommand extends Command
         $composer = $this->findComposer();
 
         $commands = [
-            ["git clone git@github.com:ikoolik/vanilla.git {$directory}", null],
+            ["git clone git@github.com:codemyviews/vanilla.git {$directory}", null],
             ["{$composer} install --no-scripts", $directory],
             ["{$composer} install --no-scripts", "{$directory}/base-theme"],
             ["mv base-theme wordpress/wp-content/themes/base-theme", $directory],
