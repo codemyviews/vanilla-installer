@@ -5,7 +5,6 @@ namespace Vanilla\Installer\Console;
 use RuntimeException;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -22,7 +21,7 @@ class NewCommand extends Command
         $this
             ->setName('new')
             ->setDescription('Create a new wordpress installation with Vanilla theme.')
-            ->addArgument('name', InputArgument::OPTIONAL);
+            ->addArgument('name', InputArgument::REQUIRED);
     }
 
     /**
@@ -34,7 +33,9 @@ class NewCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $directory = ($input->getArgument('name')) ? getcwd().'/'.$input->getArgument('name') : getcwd();
+        $name = $input->getArgument('name');
+        $directory = getcwd().'/'.$name;
+
         $this->verifyApplicationDoesntExist($directory);
 
         $output->writeln('<info>Crafting application...</info>');
@@ -45,7 +46,8 @@ class NewCommand extends Command
             ["git clone git@github.com:codemyviews/vanilla.git {$directory}", null],
             ["{$composer} install --no-scripts", $directory],
             ["{$composer} install --no-scripts", "{$directory}/base-theme"],
-            ["mv base-theme wordpress/wp-content/themes/base-theme", $directory],
+            ["rm -rf wordpress/wp-content/themes/*", $directory],
+            ["mv base-theme wordpress/wp-content/themes/{$name}", $directory],
             ["rm -rf .git", $directory]
         ];
 
