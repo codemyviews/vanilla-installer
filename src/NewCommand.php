@@ -3,14 +3,13 @@
 namespace Vanilla\Installer\Console;
 
 use RuntimeException;
-use Symfony\Component\Process\Process;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Process\Process;
 
-class NewCommand extends Command
-{
+class NewCommand extends Command {
     /**
      * Configure the command options.
      *
@@ -27,14 +26,15 @@ class NewCommand extends Command
     /**
      * Execute the command.
      *
-     * @param  \Symfony\Component\Console\Input\InputInterface  $input
-     * @param  \Symfony\Component\Console\Output\OutputInterface  $output
+     * @param  \Symfony\Component\Console\Input\InputInterface $input
+     * @param  \Symfony\Component\Console\Output\OutputInterface $output
+     *
      * @return void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $name = $input->getArgument('name');
-        $directory = getcwd().'/'.$name;
+        $directory = getcwd() . '/' . $name;
 
         $this->verifyApplicationDoesntExist($directory);
 
@@ -57,7 +57,7 @@ class NewCommand extends Command
 
             if ($input->getOption('no-ansi')) {
                 $commands = array_map(function ($value) {
-                    return $value.' --no-ansi';
+                    return $value . ' --no-ansi';
                 }, $commands);
             }
 
@@ -75,7 +75,8 @@ class NewCommand extends Command
     /**
      * Verify that the application does not already exist.
      *
-     * @param  string  $directory
+     * @param  string $directory
+     *
      * @return void
      */
     protected function verifyApplicationDoesntExist($directory)
@@ -92,8 +93,8 @@ class NewCommand extends Command
      */
     protected function findComposer()
     {
-        if (file_exists(getcwd().'/composer.phar')) {
-            return '"'.PHP_BINARY.'" composer.phar';
+        if (file_exists(getcwd() . '/composer.phar')) {
+            return '"' . PHP_BINARY . '" composer.phar';
         }
 
         return 'composer';
