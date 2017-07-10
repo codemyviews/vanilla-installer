@@ -48,7 +48,8 @@ class NewCommand extends Command {
             ["{$composer} install --no-scripts", "{$directory}/base-theme"],
             ["rm -rf wordpress/wp-content/themes/*", $directory],
             ["mv base-theme wordpress/wp-content/themes/{$name}", $directory],
-            ["rm -rf .git", $directory]
+            ["rm -rf .git", $directory],
+            ["echo 'vendor' > .gitignore", $directory]
         ];
 
         foreach ($commands as $arr) {
