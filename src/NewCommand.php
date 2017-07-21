@@ -45,12 +45,15 @@ class NewCommand extends Command {
         $commands = [
             ["git clone git@github.com:codemyviews/vanilla.git {$directory}", null],
             ["{$composer} install --no-scripts", $directory],
+            ["{$composer} update --no-scripts", $directory],
             ["{$composer} install --no-scripts", "{$directory}/base-theme"],
             ["npm install", $directory],
             ["rm -rf wordpress/wp-content/themes/*", $directory],
             ["mv base-theme wordpress/wp-content/themes/{$name}", $directory],
             ["rm -rf .git", $directory],
-            ["echo 'vendor' > .gitignore", $directory]
+            ["echo 'vendor' > .gitignore", $directory],
+            ["npm install", "{$directory}/wordpress/wp-content/themes/{$name}"],
+            ["npm run dev", "{$directory}/wordpress/wp-content/themes/{$name}"]
         ];
 
         foreach ($commands as $arr) {
