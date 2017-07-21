@@ -46,6 +46,7 @@ class NewCommand extends Command {
             ["git clone git@github.com:codemyviews/vanilla.git {$directory}", null],
             ["{$composer} install --no-scripts", $directory],
             ["{$composer} install --no-scripts", "{$directory}/base-theme"],
+            ["npm install", $directory],
             ["rm -rf wordpress/wp-content/themes/*", $directory],
             ["mv base-theme wordpress/wp-content/themes/{$name}", $directory],
             ["rm -rf .git", $directory],
