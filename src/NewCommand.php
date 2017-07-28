@@ -34,6 +34,8 @@ class NewCommand extends Command {
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $name = $input->getArgument('name');
+        $name = str_replace(['\\', '/'], '-', $name);
+
         $directory = getcwd() . '/' . $name;
 
         $this->verifyApplicationDoesntExist($directory);
@@ -47,6 +49,9 @@ class NewCommand extends Command {
             ["{$composer} install --no-scripts", $directory],
             ["{$composer} update --no-scripts", $directory],
             ["{$composer} install --no-scripts", "{$directory}/base-theme"],
+            ["mv style.css style.source", "{$directory}/base-theme"],
+            ["sed -e 's/DummyThemeName/{$name}/g' style.source > style.css", "{$directory}/base-theme"],
+            ["rm -rf style.source", "{$directory}/base-theme"],
             ["npm install", $directory],
             ["rm -rf wordpress/wp-content/themes/*", $directory],
             ["mv base-theme wordpress/wp-content/themes/{$name}", $directory],
