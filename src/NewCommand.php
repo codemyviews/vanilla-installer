@@ -55,7 +55,7 @@ class NewCommand extends Command {
             ["rm -rf wordpress/wp-content/themes/*", $directory],
             ["mv base-theme wordpress/wp-content/themes/{$name}", $directory],
             ["rm -rf .git", $directory],
-            ["echo 'vendor' > .gitignore", $directory],
+            ["echo '/vendor' > .gitignore", $directory],
             ["npm install", "{$directory}/wordpress/wp-content/themes/{$name}"],
             ["npm run dev", "{$directory}/wordpress/wp-content/themes/{$name}"]
         ];
