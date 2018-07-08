@@ -51,13 +51,16 @@ class NewCommand extends Command {
             ["{$composer} install --no-scripts", "{$directory}/base-theme"],
             ["sed -ie 's/DummyThemeName/{$name}/g' style.css", "{$directory}/base-theme"],
             ["sed -ie \"s/'WP_DEBUG', false/'WP_DEBUG', true/g\" ./wp-config-sample.php", "{$directory}/wordpress"],
-            ["npm install", $directory],
             ["rm -rf wordpress/wp-content/themes/*", $directory],
             ["mv base-theme wordpress/wp-content/themes/{$name}", $directory],
             ["rm -rf .git", $directory],
-            ["echo '/vendor' > .gitignore", $directory],
+            ["echo 'wp-config.php' > .gitignore", $directory],
+            ["echo 'wp-content/uploads' >> .gitignore", $directory],
+            ["echo '/vendor' >> .gitignore", $directory],
             ["npm install", "{$directory}/wordpress/wp-content/themes/{$name}"],
-            ["npm run dev", "{$directory}/wordpress/wp-content/themes/{$name}"]
+            ["npm run dev", "{$directory}/wordpress/wp-content/themes/{$name}"],
+            ["mv {$directory}/wordpress/* {$directory}/"],
+            ["rm -rf {$directory}/wordpress"]
         ];
 
         foreach ($commands as $arr) {
